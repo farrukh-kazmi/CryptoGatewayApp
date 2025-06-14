@@ -1,0 +1,42 @@
+﻿@page
+@model CryptoGatewayApp.Pages.Payments.IndexModel
+@{
+    ViewData["Title"] = "Payments List";
+}
+
+<h1>All Payments</h1>
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New Payment</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Payment ID</th>
+            <th>Status</th>
+            <th>Order ID</th>
+            <th>Price</th>
+            <th>Pay Amount</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Payments)
+        {
+            <tr>
+                <td>@item.PaymentId</td>
+                <td>@item.Status</td>
+                <td>@item.OrderId</td>
+                <td>@item.PriceAmount @item.PriceCurrency</td>
+                <td>@item.PayAmount @item.PayCurrency</td>
+                <td>@item.CreatedAt.ToString("g")</td>
+                <td>
+                    <a asp-page="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-page="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

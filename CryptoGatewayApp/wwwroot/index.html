@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Crypto Payment</title>
+</head>
+<body>
+    <h1>Crypto Payment Gateway</h1>
+    <form id="paymentForm">
+        <input type="text" name="price_amount" placeholder="Amount (USD)" /><br />
+        <input type="text" name="pay_currency" placeholder="Crypto (e.g., BTC)" /><br />
+        <button type="submit">Pay</button>
+    </form>
+    <pre id="responseBox"></pre>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const data = {
+                priceAmount: 50,
+                priceCurrency: "usd",
+                payCurrency: "ltc",
+                orderId: "order_001",
+                orderDescription: "Pay with Crypto"
+            };
+
+            const response = await fetch('/api/payments/create-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById('responseBox').textContent = JSON.stringify(result, null, 2);
+        });
+    </script>
+</body>
+</html>
